@@ -3,13 +3,23 @@
 @font-face {
   font-family: 'Blacker Pro Text';
   src: url('/fonts/BlackerProTx-Hv.otf') format('opentype');
-  font-weight: 400;
+  font-weight: 800;
   font-style: normal;
   font-display: swap;
 }
 
-html, body {
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Títulos grandes */
+.font-title {
   font-family: 'Blacker Pro Text', serif;
+}
+
+/* Menú / navegación */
+.font-menu {
+  font-family: 'Oswald', sans-serif;
 }
 
 html {
