@@ -1,0 +1,18 @@
+---
+const { children } = Astro.props;
+---
+
+<section class="relative w-full bg-black overflow-hidden">
+
+  <!-- Fondo fuego -->
+  <div
+    class="absolute left-0 top-0 w-full h-full bg-no-repeat bg-cover bg-center opacity-90"
+    style="background-image: url('/Secciones/TFK House/fondo.jpeg');"
+  ></div>
+
+  <!-- Contenido -->
+  <div class="relative z-10">
+    <slot />
+  </div>
+
+</section>

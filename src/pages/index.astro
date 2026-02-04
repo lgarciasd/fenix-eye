@@ -1,0 +1,38 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+
+import HeroWrapper from "../components/HeroWrapper.astro";
+
+import Header from "../components/1_header.astro";
+import Video from "../components/2_video.astro";
+import Nosotros from "../components/3_nosotros.astro";
+import Metodologia from "../components/4_metodologia.astro";
+import FenixLabel from "../components/5_fenix_label.astro";
+import Servicios from "../components/6_servicios.astro";
+import TfkHouse from "../components/7_tfk_house.astro";
+import Producciones from "../components/8_producciones.astro";
+import FenixxEye from "../components/9_fenixxeye.astro";
+import ServiciosProduccion from "../components/10_servicios_produccion.astro";
+import TextoFinal from "../components/11_texto_final.astro";
+import Footer from "../components/12_footer.astro";
+import TfkWrapper from "../components/TfkWrapper.astro";
+---
+
+<MainLayout title="Fenixx Eye">
+  <HeroWrapper>
+    <Header />
+    <Video />
+  </HeroWrapper>
+  <Nosotros />
+  <Metodologia />
+  <FenixLabel />
+  <Servicios />
+  <TfkWrapper>
+    <TfkHouse />
+    <Producciones />
+  </TfkWrapper>
+  <FenixxEye />
+  <ServiciosProduccion />
+  <TextoFinal />
+  <Footer />
+</MainLayout>

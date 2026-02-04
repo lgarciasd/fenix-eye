@@ -1,0 +1,130 @@
+<section
+  id="metodologia"
+  class="relative py-24 px-6 bg-black text-white top-20 bottom-20"
+>
+  <h2 class="text-center text-4xl md:text-5xl font-extrabold uppercase mb-16">
+    Metodología
+  </h2>
+
+  <!-- Flechas -->
+  <button
+    id="meta-prev"
+    class="meta-arrow left"
+    aria-label="Anterior"
+  >
+    ‹
+  </button>
+
+  <button
+    id="meta-next"
+    class="meta-arrow right"
+    aria-label="Siguiente"
+  >
+    ›
+  </button>
+
+  <!-- Contenedor -->
+  <div class="max-w-6xl mx-auto overflow-hidden">
+    <div
+      id="meta-list"
+      class="flex justify-center gap-20 transition-all duration-300"
+    >
+      <div class="meta-item">
+        <img src="/Secciones/Metodologia/EscucharyConocer.png" />
+        <p>Escuchar y conocer<br />tu visión</p>
+      </div>
+
+      <div class="meta-item">
+        <img src="/Secciones/Metodologia/AnalisisEstrategico.png" />
+        <p>Análisis<br />estratégico</p>
+      </div>
+
+      <div class="meta-item">
+        <img src="/Secciones/Metodologia/ConceptoCreativo.png" />
+        <p>Concepto<br />creativo</p>
+      </div>
+
+      <div class="meta-item">
+        <img src="/Secciones/Metodologia/PropuestayPlaneacion.png" />
+        <p>Propuesta y<br />planeación</p>
+      </div>
+
+      <div class="meta-item">
+        <img src="/Secciones/Metodologia/Preproduccion.png" />
+        <p>Pre-<br />producción</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .meta-item {
+    min-width: 160px;
+    text-align: center;
+  }
+
+  .meta-item img {
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 12px;
+  }
+
+  .meta-item p {
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  .meta-arrow {
+  position: absolute;
+  top: 60%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 120px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 42px;
+  color: #fff;
+
+  background: transparent;
+  cursor: pointer;
+  z-index: 20;
+
+  transition: color 0.2s ease;
+}
+
+.meta-arrow.left {
+  left: 100px;
+}
+
+.meta-arrow.right {
+  right: 100px;
+}
+
+.meta-arrow:hover {
+  color: #bdbdbd;
+}
+
+
+</style>
+
+<script is:inline>
+(() => {
+  const list = document.getElementById('meta-list');
+  const prev = document.getElementById('meta-prev');
+  const next = document.getElementById('meta-next');
+
+  next.addEventListener('click', () => {
+    const first = list.firstElementChild;
+    list.appendChild(first);
+  });
+
+  prev.addEventListener('click', () => {
+    const last = list.lastElementChild;
+    list.insertBefore(last, list.firstElementChild);
+  });
+})();
+</script>
+

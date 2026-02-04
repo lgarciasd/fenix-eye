@@ -1,0 +1,22 @@
+<section
+  id="inicio"
+  class="min-h-[80vh] flex items-center justify-center px-6 text-center"
+>
+
+  <!-- Video central -->
+  <div class="relative w-full md:w-[65%] aspect-video z-10 top-5">
+    <video
+      id="heroVideo"
+      class="w-full h-full object-cover rounded-xl opacity-80 transition-opacity duration-300"
+      poster="/Secciones/Main/poster.png"
+      controls
+      playsinline
+      onplay="this.classList.remove('opacity-80');"
+      onpause="this.classList.add('opacity-80');"
+      >
+      <source src="/Secciones/Main/video.mp4" type="video/mp4" />
+    </video>
+
+  </div>
+
+</section>

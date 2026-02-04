@@ -1,0 +1,226 @@
+<section class="w-full bg-black py-24 px-6">
+  <div class="mx-auto">
+
+    <!-- Título -->
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-white text-4xl md:text-5xl font-semibold text-center mb-16">
+        SERVICIOS
+      </h2>
+    </div>
+
+    <!-- Carousel -->
+    <div class="w-full flex justify-center"></div>
+      <div class="carousel-stage" aria-label="Carousel">
+        <button class="nav left" id="prev" aria-label="Previous">
+          <span class="chev"></span>
+        </button>
+        <button class="nav right" id="next" aria-label="Next">
+          <span class="chev"></span>
+        </button>
+
+        <div class="track" id="track">
+          <div class="card"><img src="/Secciones/FenixEyeLabel/Imagenes Carrousel/Optimizadas/TWEETEO.png" alt="Servicio 1"></div>
+          <div class="card"><img src="/Secciones/FenixEyeLabel/Imagenes Carrousel/Optimizadas/Toca-Toca 2.jpeg" alt="Servicio 2"></div>
+          <div class="card"><img src="/Secciones/FenixEyeLabel/Imagenes Carrousel/Optimizadas/INSTINTO ANIMAL.jpeg" alt="Servicio 3"></div>
+          <div class="card"><img src="/Secciones/FenixEyeLabel/Imagenes Carrousel/Optimizadas/Remember-Us_portada.png" alt="Servicio 4"></div>
+          <div class="card"><img src="/Secciones/FenixEyeLabel/Imagenes Carrousel/Optimizadas/Gosto-de-voce.jpg" alt="Servicio 5"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  :root{
+    --stage-h: 360px;
+    --card-w: 250px;
+    --card-h: 250px;
+    --side-w: 230px;
+    --side-h: 230px;
+    --radius: 22px;
+    --shadow: 0 18px 40px rgba(0,0,0,.65);
+  }
+
+  .carousel-stage{
+    height: var(--stage-h);
+    position: relative;
+    background:#000;
+    overflow:hidden;
+    border-radius: 10px;
+    margin: 0 auto;
+  }
+
+  .carousel-stage::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background: radial-gradient(60% 100% at 50% 50%, rgba(0,0,0,0) 45%, rgba(0,0,0,.75) 100%);
+    z-index:2;
+  }
+
+  .nav{
+    position:absolute;
+    top:50%;
+    transform: translateY(-50%);
+    width:60px;
+    height:60px;
+    display:grid;
+    place-items:center;
+    border:none;
+    background:transparent;
+    cursor:pointer;
+    z-index:50;
+  }
+
+  .nav.left{ left: 14px; }
+  .nav.right{ right: 14px; }
+
+  .chev{
+    width: 20px;
+    height: 20px;
+    border-right: 3px solid #fff;
+    border-bottom: 3px solid #fff;
+    transform: rotate(135deg);
+  }
+  .right .chev{ transform: rotate(-45deg); }
+
+  .track{
+    position:absolute;
+    inset:0;
+    perspective: 900px;
+    perspective-origin: 50% 45%;
+  }
+
+  .card{
+    position:absolute;
+    top:50%;
+    left:50%;
+    width: var(--side-w);
+    height: var(--side-h);
+    border-radius: var(--radius);
+    overflow:visible;
+    box-shadow: var(--shadow);
+    transition:
+      transform 520ms cubic-bezier(.2,.85,.2,1),
+      opacity 520ms cubic-bezier(.2,.85,.2,1),
+      filter 520ms cubic-bezier(.2,.85,.2,1);
+    opacity:.3;
+  }
+
+.card.is-active::after{
+  content:"";
+  position:absolute;
+  inset:-45px; /* 👈 MÁS GRANDE que la card */
+  background:url("/Secciones/FenixEyeLabel/CuadroSeleccion.png") center / contain no-repeat;
+  pointer-events:none;
+  z-index:-1; /* 👈 queda detrás de la imagen */
+  animation: firePulse 2.5s ease-in-out infinite;
+}
+
+@keyframes firePulse{
+  0%   { transform: scale(1); opacity:.9; }
+  50%  { transform: scale(1.02); opacity:1; }
+  100% { transform: scale(1); opacity:.9; }
+}
+  .card img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+  }
+
+  .card.is-active{
+    width: var(--card-w);
+    height: var(--card-h);
+    opacity:1;
+    z-index:10;
+  }
+</style>
+
+<script is:inline>
+(() => {
+  const cards = Array.from(document.querySelectorAll('.card'));
+  const prev = document.getElementById('prev');
+  const next = document.getElementById('next');
+  let active = 0;
+
+  const slots = [
+    { x: -720, s: 0.80, r:  28, o: 0.14, b: 2.8, z: 1 },
+    { x: -500, s: 0.88, r:  18, o: 0.5, b: 1, z: 2 },
+    { x: -260, s: 0.95, r:   9, o: 0.5, b: 1, z: 4 },
+    { x:    0, s: 1.14, r:   0, o: 1.00, b: 0.0, z: 10 },
+    { x:  260, s: 0.95, r:  -9, o: 0.5, b: 1, z: 4 },
+    { x:  500, s: 0.88, r: -18, o: 0.5, b: 1, z: 2 },
+    { x:  720, s: 0.80, r: -28, o: 0.14, b: 2.8, z: 1 },
+  ];
+
+  const mid = Math.floor(slots.length / 2);
+  const mod = (n, m) => ((n % m) + m) % m;
+
+  function circularOffset(i, a, n){
+    let d = i - a;
+    if (d >  n/2) d -= n;
+    if (d < -n/2) d += n;
+    return d;
+  }
+
+  function render(){
+    const n = cards.length;
+    cards.forEach((card, i) => {
+      const offset = circularOffset(i, active, n);
+      const slotIndex = offset + mid;
+
+      card.classList.toggle('is-active', offset === 0);
+
+      if (slotIndex < 0 || slotIndex >= slots.length){
+        card.style.opacity = 0;
+        card.style.pointerEvents = 'none';
+        return;
+      }
+
+      const s = slots[slotIndex];
+      card.style.transform =
+        `translate(-50%, -50%) translateX(${s.x}px) scale(${s.s}) rotateY(${s.r}deg)`;
+      card.style.opacity = s.o;
+      card.style.zIndex = s.z;
+      card.style.filter = `blur(${s.b}px)`;
+
+      // 👇 habilitamos click solo en visibles
+      card.style.pointerEvents = 'auto';
+      card.dataset.offset = offset;
+    });
+  }
+
+  // 👉 Click en cards laterales
+  cards.forEach((card, i) => {
+    card.addEventListener('click', () => {
+      const offset = Number(card.dataset.offset);
+
+      if (offset === 0) return; // card activa
+
+      if (offset > 0) {
+        active = mod(active + 1, cards.length);
+      } else {
+        active = mod(active - 1, cards.length);
+      }
+
+      render();
+    });
+  });
+
+  prev.onclick = () => {
+    active = mod(active - 1, cards.length);
+    render();
+  };
+
+  next.onclick = () => {
+    active = mod(active + 1, cards.length);
+    render();
+  };
+
+  render();
+})();
+</script>
+
+
