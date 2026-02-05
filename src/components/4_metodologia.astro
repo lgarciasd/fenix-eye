@@ -1,15 +1,17 @@
 <section
   id="metodologia"
-  class="relative py-24 px-6 bg-black text-white top-20 bottom-20"
+  class="relative px-4 md:px-6 bg-black text-white
+         mt-16 md:top-20
+         mb:pb-24"
 >
-  <h2 class="font-title text-center text-4xl md:text-5xl font-extrabold uppercase mb-16">
+  <h2 class="font-title text-center text-4xl md:text-6xl font-extrabold uppercase mb-12 md:mb-16">
     Metodología
   </h2>
 
-  <!-- Flechas -->
+  <!-- Flechas (solo desktop) -->
   <button
     id="meta-prev"
-    class="meta-arrow left"
+    class="meta-arrow left hidden md:flex pb-15"
     aria-label="Anterior"
   >
     ‹
@@ -17,7 +19,7 @@
 
   <button
     id="meta-next"
-    class="meta-arrow right"
+    class="meta-arrow right hidden md:flex pb-15"
     aria-label="Siguiente"
   >
     ›
@@ -27,35 +29,41 @@
   <div class="max-w-6xl mx-auto overflow-hidden">
     <div
       id="meta-list"
-      class="flex justify-center gap-20 transition-all duration-300"
+      class="flex justify-start md:justify-center
+             gap-10 md:gap-20
+             transition-all duration-300
+             overflow-x-auto md:overflow-visible
+             snap-x snap-mandatory md:snap-none
+             px-4 md:px-0"
     >
-      <div class="meta-item">
+      <div class="meta-item snap-center">
         <img src="/Secciones/Metodologia/EscucharyConocer.png" />
         <p>Escuchar y conocer<br />tu visión</p>
       </div>
 
-      <div class="meta-item">
+      <div class="meta-item snap-center">
         <img src="/Secciones/Metodologia/AnalisisEstrategico.png" />
         <p>Análisis<br />estratégico</p>
       </div>
 
-      <div class="meta-item">
+      <div class="meta-item snap-center">
         <img src="/Secciones/Metodologia/ConceptoCreativo.png" />
         <p>Concepto<br />creativo</p>
       </div>
 
-      <div class="meta-item">
+      <div class="meta-item snap-center">
         <img src="/Secciones/Metodologia/PropuestayPlaneacion.png" />
         <p>Propuesta y<br />planeación</p>
       </div>
 
-      <div class="meta-item">
+      <div class="meta-item snap-center">
         <img src="/Secciones/Metodologia/Preproduccion.png" />
         <p>Pre-<br />producción</p>
       </div>
     </div>
   </div>
 </section>
+
 
 <style>
   .meta-item {
@@ -81,7 +89,6 @@
   width: 48px;
   height: 120px;
 
-  display: flex;
   align-items: center;
   justify-content: center;
 
@@ -107,6 +114,17 @@
   color: #bdbdbd;
 }
 
+#meta-list {
+  cursor: grab;
+  user-select: none;
+}
+
+.meta-item img{
+  pointer-events: none;
+  user-drag: none;
+  -webkit-user-drag: none;
+  user-select: none;
+}
 
 </style>
 
@@ -116,15 +134,52 @@
   const prev = document.getElementById('meta-prev');
   const next = document.getElementById('meta-next');
 
-  next.addEventListener('click', () => {
+  function goNext() {
     const first = list.firstElementChild;
     list.appendChild(first);
-  });
+  }
 
-  prev.addEventListener('click', () => {
+  function goPrev() {
     const last = list.lastElementChild;
     list.insertBefore(last, list.firstElementChild);
+  }
+
+  next.addEventListener('click', goNext);
+  prev.addEventListener('click', goPrev);
+
+  // -------------------
+  // DRAG / SWIPE
+  // -------------------
+
+  let startX = 0;
+  let isDown = false;
+
+  list.addEventListener('pointerdown', (e) => {
+    isDown = true;
+    startX = e.clientX;
+    list.style.cursor = 'grabbing';
   });
+
+  list.addEventListener('pointerup', (e) => {
+    if (!isDown) return;
+    isDown = false;
+
+    const diff = e.clientX - startX;
+
+    if (diff > 60) {
+      goPrev(); // arrastró a la derecha
+    } else if (diff < -60) {
+      goNext(); // arrastró a la izquierda
+    }
+
+    list.style.cursor = 'grab';
+  });
+
+  list.addEventListener('pointerleave', () => {
+    isDown = false;
+    list.style.cursor = 'grab';
+  });
+
 })();
 </script>
 

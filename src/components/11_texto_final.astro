@@ -1,7 +1,10 @@
-<section id="contacto" class="relative w-full bg-black overflow-hidden pt-10 pb-25 px-6">
+<section id="contacto" class="relative w-full bg-black overflow-hidden pt-8 md:pt-10 pb-16 md:pb-25 px-4 md:px-6">
+  
   <!-- Imagen de fuego inferior -->
   <div
-    class="absolute bottom-0 left-0 w-full h-[280px] bg-bottom bg-cover opacity-90 pointer-events-none"
+    class="absolute bottom-0 left-0 w-full
+           h-[180px] md:h-[280px]
+           bg-bottom bg-cover opacity-90 pointer-events-none"
     style="background-image: url('/Secciones/Contacto/fondochispas.png');"
   ></div>
 
@@ -9,25 +12,49 @@
   <div class="relative z-10 max-w-6xl mx-auto text-center">
 
     <!-- Texto principal -->
-    <p class="font-title text-white text-2xl md:text-3xl tracking-wide mb-4 mt-40">
+    <p class="
+      text-white
+      text-xl md:text-5xl
+      font-light
+      tracking-[0.12em] md:tracking-[0.18em]
+      mb-4 md:mb-6
+      mt-16 md:mt-32
+    ">
       ¿LISTO PARA
     </p>
 
-    <h2 class="font-title text-red-600 text-6xl md:text-7xl font-extrabold tracking-widest mb-4">
+    <h2 class="
+      font-title
+      text-[#ff1a1a]
+      text-5xl md:text-[110px]
+      font-extrabold
+      tracking-[0.08em] md:tracking-[0.12em]
+      leading-none
+      mb-4 md:mb-6
+    ">
       CREAR ALGO
     </h2>
 
-    <p class="font-title text-white text-2xl md:text-3xl tracking-wide mb-50">
+    <p class="
+      text-white
+      text-2xl md:text-6xl
+      font-light
+      tracking-[0.14em] md:tracking-[0.22em]
+      mb-16 md:mb-40
+    ">
       EXTRAORDINARIO?
     </p>
 
     <!-- Datos de contacto -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-40 text-md text-gray-200">
+    <div class="grid grid-cols-1 md:grid-cols-3
+                gap-10 md:gap-40
+                text-sm md:text-md
+                text-gray-200">
 
       <!-- Oficina -->
       <div>
         <p class="font-semibold text-white mb-2">Oficina</p>
-        <p>
+        <p class="leading-relaxed">
           Alejandro Dumas No. 233 A
           Col. Polanco, Miguel Hidalgo
           C.P. 11560 CDMX.
@@ -40,7 +67,7 @@
         <p>
           <a
             href="mailto:hola@fenixxeye.com"
-            class="hover:text-white transition"
+            class="hover:text-white transition break-all"
           >
             hola@fenixxeye.com
           </a>
@@ -61,5 +88,6 @@
       </div>
 
     </div>
+
   </div>
 </section>

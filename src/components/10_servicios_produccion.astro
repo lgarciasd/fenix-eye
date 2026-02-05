@@ -7,7 +7,7 @@
   <div class="relative max-w-7xl mx-auto z-10">
 
     <!-- Título -->
-    <h2 class="font-title relative z-20 text-center text-5xl md:text-6xl font-extrabold uppercase text-[#b18a42] mb-20 tracking-wide">
+    <h2 class="font-title relative z-20 text-center text-3xl sm:text-4xl md:text-6xl font-extrabold uppercase text-[#b18a42] mb-20 tracking-normal md:tracking-wide">
       SERVICIOS DE PRODUCCIÓN
     </h2>
 
@@ -84,6 +84,10 @@
     height: 320px;
     position: relative;
     overflow: visible;
+
+    cursor: grab;
+    user-select: none;
+    touch-action: pan-y;
   }
 
   .cinta-servicios{
@@ -110,8 +114,15 @@
     opacity:.7;
   }
 
-  .nav.left{ left: -120px; }
-  .nav.right{ right: -120px; }
+  /* móvil */
+  .nav.left { left: -10px; }
+  .nav.right { right: -10px; }
+
+  /* desktop */
+  @media (min-width: 768px) {
+    .nav.left { left: -120px; }
+    .nav.right { right: -120px; }
+  }
 
   .chev{
     width: 24px;
@@ -160,6 +171,12 @@
     border-radius: 30px;
     corner-shape: scoop;
   }
+
+  .card-serv img{
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
 </style>
 
 <script is:inline>
@@ -167,6 +184,8 @@
   const cards = Array.from(document.querySelectorAll('.card-serv'));
   const prev = document.getElementById('prev-serv');
   const next = document.getElementById('next-serv');
+  const stage = document.querySelector('.carousel-stage-servicios');
+
   let active = 2;
 
   const slots = [
@@ -209,21 +228,25 @@
 
       card.style.opacity = s.o;
       card.style.zIndex = s.z;
-
       card.style.pointerEvents = 'auto';
       card.dataset.offset = offset;
     });
   }
 
-  // Click en laterales
+  // =====================
+  // click lateral protegido
+  // =====================
+
+  let moved = false;
+
   cards.forEach(card => {
     card.addEventListener('click', () => {
+      if (moved) return;
+
       const offset = Number(card.dataset.offset);
       if (offset === 0) return;
 
-      if (offset > 0) active = mod(active + 1, cards.length);
-      else active = mod(active - 1, cards.length);
-
+      active = mod(active + (offset > 0 ? 1 : -1), cards.length);
       render();
     });
   });
@@ -237,6 +260,56 @@
     active = mod(active + 1, cards.length);
     render();
   };
+
+  // =====================
+  // DRAG / SWIPE
+  // =====================
+
+  let startX = 0;
+  let isDown = false;
+
+  function onDown(e){
+    isDown = true;
+    moved = false;
+    startX = e.clientX;
+    stage.style.cursor = 'grabbing';
+  }
+
+  function onMove(e){
+    if (!isDown) return;
+    if (Math.abs(e.clientX - startX) > 12) moved = true;
+  }
+
+  function onUp(e){
+    if (!isDown) return;
+    isDown = false;
+
+    const diff = e.clientX - startX;
+
+    if (diff > 70){
+      active = mod(active - 1, cards.length);
+      render();
+    }
+    else if (diff < -70){
+      active = mod(active + 1, cards.length);
+      render();
+    }
+
+    stage.style.cursor = 'grab';
+  }
+
+  // stage listeners
+  stage.addEventListener('pointerdown', onDown);
+  stage.addEventListener('pointermove', onMove);
+  stage.addEventListener('pointerup', onUp);
+  stage.addEventListener('pointerleave', onUp);
+
+  // cards listeners (clave para swipe sobre imagen)
+  cards.forEach(card => {
+    card.addEventListener('pointerdown', onDown);
+    card.addEventListener('pointermove', onMove);
+    card.addEventListener('pointerup', onUp);
+  });
 
   render();
 })();

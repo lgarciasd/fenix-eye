@@ -1,53 +1,71 @@
-<header class="w-full pt-6 flex justify-center">
+<header class="w-full pt-6 flex justify-center relative">
+
+  <!-- Botón hamburguesa (solo móvil) -->
+  <button
+    id="menuBtn"
+    class="md:hidden absolute left-4 top-6 text-white text-2xl z-50"
+  >
+    ☰
+  </button>
+
+  <!-- NAV ORIGINAL — solo desktop -->
   <nav
-    class="flex gap-10 px-10 py-3 
+    class="hidden md:flex gap-10 px-10 py-3 
            rounded-2xl
            border border-white/70
            bg-black/40 backdrop-blur
            font-menu text-sm uppercase tracking-wider font-[800]"
   >
-    <!-- Activo -->
-    <a
-      href=""
-      class="text-red-500 font-semibold transition-colors duration-200"
-    >
+    <a href="" class="text-red-500 font-semibold">
       Inicio
     </a>
 
-    <!-- Links normales -->
-    <a
-      href="#nosotros"
-      class="text-white transition-colors duration-200 hover:text-gray-300"
-    >
+    <a href="#nosotros" class="text-white hover:text-gray-300">
       Nosotros
     </a>
 
-    <a
-      href="#label"
-      class="text-white transition-colors duration-200 hover:text-gray-300"
-    >
+    <a href="#label" class="text-white hover:text-gray-300">
       Fenix Eye Label
     </a>
 
-    <a
-      href="#tfk"
-      class="text-white transition-colors duration-200 hover:text-gray-300"
-    >
+    <a href="#tfk" class="text-white hover:text-gray-300">
       TFK House
     </a>
 
-    <a
-      href="#productions"
-      class="text-white transition-colors duration-200 hover:text-gray-300"
-    >
+    <a href="#productions" class="text-white hover:text-gray-300">
       Fenix Eye Productions
     </a>
 
-    <a
-      href="#contacto"
-      class="text-white transition-colors duration-200 hover:text-gray-300"
-    >
+    <a href="#contacto" class="text-white hover:text-gray-300">
       Contacto
     </a>
   </nav>
+
+  <!-- NAV MOVIL (toggle) -->
+  <nav
+    id="mobileMenu"
+    class="hidden md:hidden absolute top-20 left-4 right-4
+           rounded-2xl
+           border border-white/70
+           bg-black/90 backdrop-blur
+           font-menu text-sm uppercase tracking-wider font-[800]
+           flex flex-col divide-y divide-white/20 z-40"
+  >
+    <a href="" class="p-4 text-red-500 font-semibold">Inicio</a>
+    <a href="#nosotros" class="p-4 text-white">Nosotros</a>
+    <a href="#label" class="p-4 text-white">Fenix Eye Label</a>
+    <a href="#tfk" class="p-4 text-white">TFK House</a>
+    <a href="#productions" class="p-4 text-white">Fenix Eye Productions</a>
+    <a href="#contacto" class="p-4 text-white">Contacto</a>
+  </nav>
+
 </header>
+
+<script>
+  const btn = document.getElementById('menuBtn')
+  const menu = document.getElementById('mobileMenu')
+
+  btn?.addEventListener('click', () => {
+    menu?.classList.toggle('hidden')
+  })
+</script>

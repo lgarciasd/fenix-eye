@@ -6,7 +6,7 @@
   <div class="relative max-w-7xl mx-auto z-10">
 
     <!-- Título -->
-    <h2 class="font-title text-center text-5xl md:text-6xl font-extrabold uppercase text-[#b18a42] mb-16 tracking-wide">
+    <h2 class="font-title text-center text-3xl sm:text-4xl md:text-6xl font-extrabold uppercase text-[#b18a42] mb-16 tracking-normal md:tracking-wide">
       PRODUCCIONES RECIENTES
     </h2>
     <br />
@@ -62,6 +62,10 @@
   height: 320px;
   position: relative;
   overflow: visible;
+  
+  cursor: grab;
+  user-select: none;
+  touch-action: pan-y;
 }
 
 .nav{
@@ -155,8 +159,15 @@
     z-index:50;
 }
 
-  .nav.left{ left: -150px; }
-  .nav.right{ right: -150px; }
+  @media (min-width: 768px) {
+    .nav.left {
+      left: -150px;
+    }
+
+    .nav.right {
+      right: -150px;
+    }
+  }
 
   .chev{
     width: 20px;
@@ -170,6 +181,12 @@
   .cinta-roja {
     filter: drop-shadow(0 0 30px rgba(255,0,0,0.25));
   }
+
+  .card-prod img{
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
 </style>
 
 
@@ -178,6 +195,8 @@
   const cards = Array.from(document.querySelectorAll('.card-prod'));
   const prev = document.getElementById('prev-prod');
   const next = document.getElementById('next-prod');
+  const stage = document.querySelector('.carousel-stage-producciones');
+
   let active = 2;
 
   const slots = [
@@ -226,14 +245,17 @@
     });
   }
 
+  // click lateral (con protección contra drag)
+  let moved = false;
+
   cards.forEach(card => {
     card.addEventListener('click', () => {
+      if (moved) return;
+
       const offset = Number(card.dataset.offset);
       if (offset === 0) return;
 
-      if (offset > 0) active = mod(active + 1, cards.length);
-      else active = mod(active - 1, cards.length);
-
+      active = mod(active + (offset > 0 ? 1 : -1), cards.length);
       render();
     });
   });
@@ -247,6 +269,56 @@
     active = mod(active + 1, cards.length);
     render();
   };
+
+  // ======================
+  // ✅ DRAG / SWIPE
+  // ======================
+
+  let startX = 0;
+  let isDown = false;
+
+  function onDown(e){
+    isDown = true;
+    moved = false;
+    startX = e.clientX;
+    stage.style.cursor = 'grabbing';
+  }
+
+  function onMove(e){
+    if (!isDown) return;
+    if (Math.abs(e.clientX - startX) > 12) moved = true;
+  }
+
+  function onUp(e){
+    if (!isDown) return;
+    isDown = false;
+
+    const diff = e.clientX - startX;
+
+    if (diff > 70){
+      active = mod(active - 1, cards.length);
+      render();
+    }
+    else if (diff < -70){
+      active = mod(active + 1, cards.length);
+      render();
+    }
+
+    stage.style.cursor = 'grab';
+  }
+
+  // stage listeners
+  stage.addEventListener('pointerdown', onDown);
+  stage.addEventListener('pointermove', onMove);
+  stage.addEventListener('pointerup', onUp);
+  stage.addEventListener('pointerleave', onUp);
+
+  // cards listeners (clave para que funcione sobre imágenes)
+  cards.forEach(card => {
+    card.addEventListener('pointerdown', onDown);
+    card.addEventListener('pointermove', onMove);
+    card.addEventListener('pointerup', onUp);
+  });
 
   render();
 })();

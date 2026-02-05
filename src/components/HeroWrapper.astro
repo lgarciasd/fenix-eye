@@ -1,24 +1,31 @@
-<section class="relative h-[110vh] overflow-hidden bg-black">
-  <!-- Imagen 1: top-left -->
-<img
+<section class="relative min-h-screen md:h-[110vh] overflow-hidden bg-black">
+
+  <!-- Imagen 1 -->
+  <img
   src="/Secciones/Main/LumbreFondoParteIzquierda.jpeg"
   class="absolute top-10 right-230
-         w-[50%] h-[70%]
-         object-cover
-         -translate-x-12 -translate-y-12"
+         md:w-[50%] h-[70%]
+         md:object-cover
+         md:-translate-x-12 -translate-y-12"
 />
 
-  <!-- Imagen 2: bottom-right -->
+  <!-- Imagen 2 -->
   <img
-  src="/Secciones/Main/LumbreFondoParteDerecha.jpeg"
-  class="absolute left-250 top-80 margin-bottom-20
-         w-[50%] h-[70%]
-         object-cover
-         -translate-x-12 -translate-y-12"
+    src="/Secciones/Main/LumbreFondoParteDerecha.jpeg"
+    class="absolute
+           bottom-0 right-0
+           w-[120%] h-[100%]
+           object-cover opacity-40
+
+           md:left-250 md:top-80
+           md:w-[50%] md:h-[70%]
+           md:opacity-100
+           md:-translate-x-12 md:-translate-y-12"
   />
 
   <!-- Contenido -->
   <div class="relative z-10">
     <slot />
   </div>
+
 </section>
