@@ -11,7 +11,7 @@
   <!-- Flechas (solo desktop) -->
   <button
     id="meta-prev"
-    class="meta-arrow left hidden md:flex"
+    class="meta-arrow left flex"
     aria-label="Anterior"
   >
     ‹
@@ -19,7 +19,7 @@
 
   <button
     id="meta-next"
-    class="meta-arrow right hidden md:flex"
+    class="meta-arrow right flex"
     aria-label="Siguiente"
   >
     ›
@@ -103,11 +103,21 @@
 }
 
 .meta-arrow.left {
-  left: 100px;
+  left: 0px;
 }
 
 .meta-arrow.right {
-  right: 100px;
+  right: 0px;
+}
+
+@media (min-width: 768px) {
+  .meta-arrow.left {
+    left: 100px;
+  }
+
+  .meta-arrow.right {
+    right: 100px;
+  }
 }
 
 .meta-arrow:hover {
