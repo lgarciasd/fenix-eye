@@ -148,12 +148,8 @@
     top:50%;
     left:50%;
     width: 230px;
-    height: 180px;
+    height: 220px;
     overflow:hidden;
-    transition:
-      transform 520ms cubic-bezier(.2,.85,.2,1),
-      opacity 520ms cubic-bezier(.2,.85,.2,1);
-
   }
 
   .card-serv img{
@@ -165,7 +161,7 @@
   /* Activa */
   .card-serv.is-active{
     width: 420px;
-    height: 280px;
+    height: 310px;
     opacity: 1;
     z-index: 20;
     border-radius: 30px;
@@ -189,11 +185,11 @@
   let active = 2;
 
   const slots = [
-    { x: -500, s: 0.90, r:  0, o: 0.45, z: 5 },
+    { x: -500, s: 0.90, r:  0, o: 0.75, z: 5 },
     { x: -281, s: 1.00, r:  0, o: 0.75, z: 8 },
     { x:    0, s: 1.00, r:  0, o: 1.00, z: 20 },
     { x:  281, s: 1.00, r:  0, o: 0.75, z: 8 },
-    { x:  500, s: 0.90, r:  0, o: 0.45, z: 5 },
+    { x:  500, s: 0.90, r:  0, o: 0.75, z: 5 },
   ];
 
   const mid = Math.floor(slots.length / 2);
